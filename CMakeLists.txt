@@ -139,6 +139,8 @@ if(NOT FLATC_EXECUTABLE)
   add_subdirectory(third-party/flatbuffers)
 endif()
 
+add_subdirectory(third-party/fbjni)
+
 #
 # gflags: Commandline flag libgrary
 #
@@ -195,6 +197,7 @@ if(NOT CMAKE_TOOLCHAIN_FILE MATCHES ".*ios\.toolchain\.cmake$")
   if(CMAKE_BUILD_TYPE EQUAL "RELEASE")
     target_link_options(executor_runner PRIVATE "LINKER:--gc-sections")
   endif()
+  list(APPEND _libs fbjni)
   target_link_libraries(executor_runner ${_libs})
   target_compile_options(executor_runner PUBLIC ${_common_compile_options})
 endif()
