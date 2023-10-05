@@ -185,6 +185,9 @@ class JEValue : public facebook::jni::JavaClass<JEValue> {
       auto numel = 1;
       for (int i = 0; i < rank; i++) {
         shapeVec.push_back(shapeArr[i]);
+      }
+      for (int i = rank - 1; i >= 0; --i) {
+        strides[i] = numel;
         numel *= shapeArr[i];
       }
       JNIEnv* jni = facebook::jni::Environment::current();
@@ -322,7 +325,7 @@ class ExecuTorchJni : public facebook::jni::HybridClass<ExecuTorchJni> {
     constexpr int32_t kHeight = 224;
     constexpr int32_t kWidth = 224;
     auto kStrides = std::vector<int32_t>(
-        {kChannels * kHeight * kWidth, kHeight * kWidth, kWidth, 1});
+        {1, 1, 1, 1});
     std::vector<exec_aten::SizesType> shapeVec;
     // TODO: Inline the function
     auto tensor_impl = JEValue::JEValueToTensorImpl(
