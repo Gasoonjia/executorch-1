@@ -136,7 +136,7 @@ public class MainActivity extends Activity implements Runnable {
 
     try {
       mModule =
-          Module.load(MainActivity.assetFilePath(getApplicationContext(), "dl3_xnnpack_fp32.pte"));
+          Module.load(MainActivity.assetFilePath(getApplicationContext(), "dlv3_qnn.pte"));
     } catch (IOException e) {
       Log.e("ImageSegmentation", "Error reading assets", e);
       finish();
